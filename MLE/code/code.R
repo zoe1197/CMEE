@@ -60,7 +60,16 @@ hist(y.row.mean)
 
 
 
-
+# r: generate random number in specific distribution
+rnorm(20)
+# d:pmf/pdf
+dnorm(1:3)
+# p:cdf
+pnorm(q = 1.96) - pnorm(-1.96)
+integrate(dnorm,lower = -1.96, upper = 1.96)
+sum(dnorm(-1.96:1.96))
+# q:quantile
+qnorm(0.3)
 
 
 
@@ -95,7 +104,7 @@ optimize(binomial.likelihood, interval = c(0,1), maximum = TRUE)
 
 ############ Rabbit Example ############
 # read the data
-recap.data <- read.csv("data/recapture.csv", header = TRUE)
+recap.data <- read.csv("../data/recapture.csv", header = TRUE)
 # scatterplot
 plot(recap.data$day, recap.data$length_diff, pch = 19)
 
@@ -154,6 +163,71 @@ sqrt(var(m$residual)*(n-1)/n)
 
 
 ########################## Wednesday ##########################
+# Question 3
+## 1>
+flip_coin <- function(p,n,y){
+  return(choose(n,y)*(p^y)*((1-p)^(n-y)))
+}
+# M1: the simplified model with p = 0.5(p is fixed), Under M1, there is 0 free parameter. The maximised likelihood under M1 is
+L_0.5 <- flip_coin(0.5,10,7)
+log_L_0.5 <- log(L_0.5)
+# M2: the Null model with 1 free parameter. We know from Tuesday that the likelihood is maximised when p=0.7. Hence the maximised likelihood under M1 is
+L_0.7 <- flip_coin(0.7,10,7)
+log_L_0.7 <- log(L_0.7)
+# LRT statistic 
+D <- 2*(log_L_0.7 - log_L_0.5)
+# df of this test is 1-0=1, critical value of chi-square is 3.84.
+# Since D < critical value, we accept M1 as the simplified model, do not reject the fair coin hypothesis.
 
+## 2>
+# M1: the simplified model with p = 0.5(p is fixed), 
+# Under M1, there is 0 free parameter. The maximised likelihood under M1 is
+L_1 <- flip_coin(0.5,50,35)
+L_1
+log_L_1 <- log(L_1)
+log_L_1
+# M2: the Null model with 1 free parameter. 
+# We know from Tuesday that the likelihood is maximised when p=0.7. 
+# Hence the maximised likelihood under M1 is
+L_2 <- flip_coin(0.7,50,35)
+L_2
+log_L_2 <- log(L_2)
+log_L_2
+# LRT statistic 
+D <- 2*(log_L_2 - log_L_1)
+D
+# df of this test is 1-0=1, critical value of chi-square is 3.84.
+# Since D >> critical value, we reject M1 as the simplified model, do not reject the fair coin hypothesis.
+
+# Question 4
+## read the data
+flower <- read.table("../data/flowering.txt", header = T)
+names(flower)
+## visualize the data
+par(mfrow = c(1,2))
+plot(flower$Flowers, flower$State)
+plot(flower$Root, flower$State)
+## define the logistic log likelihood function
+logistic <- function(parm,dat){
+  a <- parm[1]
+  b <- parm[2]
+  c <- parm[3]
+  state <- dat[,1]
+  flowers <- dat[,2]
+  root <- dat[,3]
+  # model the success probability, via expit transformation
+  p <- exp(a+b*flowers+c*root) / (1+exp(a+b*flowers+c*root))
+  # the log likelihood function
+  log.like <- sum(state*log(p)+(1-state)*log(1-p))
+  
+  return(log.like)
+}
+
+# try
+logistic(c(0,0,0), dat = flower)
+
+# Maximize the log likelihood 
+M1 <- optim()
+M1
 ########################## Thursday ##########################
 ########################## Friday ##########################
