@@ -1,6 +1,6 @@
 
 # geckos
-
+########## calculating the Molecular clock, divergence time ~ with assumption the same mutation rate
 ## read data for each specie
 
 len <- 20000
