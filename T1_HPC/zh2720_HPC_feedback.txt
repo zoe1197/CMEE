@@ -1,0 +1,86 @@
+HPC long practical feedback for zongyihu ( zongyihu ) 2020
+ 
+email : zongyi.hu20@imperial.ac.uk
+username : zh2720
+ 
+Your final mark is : 85 %
+ 
+Mark allocation break down
+1) Technically correct answers to all questions worth 60 % of final grade
+Your mark :  58.5 /60
+2) Quality of free text answers worth 8 % of final grade
+Your mark :  5.4 /8
+3) Quality of graphical outputs worth 8 % of final grade
+Your mark :  6.5 /8
+4) Quality of code worth 8 % of final grade
+Your mark :  5.5 /8
+5) Answers to challenge questions worth 16 % of final grade
+Your mark :  9.4 /16
+ 
+Marks for main questions
+Q 1 :    2 / 2
+Q 2 :    1 / 1
+Q 3 :    1 / 1
+Q 4 :    2 / 2
+Q 5 :    2 / 2
+Q 6 :    2 / 2
+Q 7 :    2 / 2
+Q 8 :    2 / 3    comments: the mechanism isn't postitive feedback as more abundant species are also more likely to lose individuals. The answer is primarily related to stochasticity and the fact that extinctions cannot be reversed in a model without immigration or speciation
+Q 9 :    3 / 3
+Q 10 :    1 / 1
+Q 11 :    1 / 1
+Q 12 :    4 / 4
+Q 13 :    3 / 3
+Q 14 :    3 / 3
+Q 15 :    2 / 2
+Q 16 :    4 / 4
+Q 17 :    4.5 / 6    comments: proc.time is not used correctly, you should use proc.time[[3]]. Also, the time passed in was meant to be in minutes wheras this function takes it as seconds
+Q 18 :    6 / 6
+Q 19 :    10 / 10
+Q 20 :    10 / 10
+Q 21 :    2 / 2
+Q 22 :    2 / 2
+Q 23 :    8 / 8
+Q 24 :    2 / 2
+Q 25 :    2 / 2
+Q 26 :    2 / 2
+Q 27 :    3 / 3
+Q 28 :    4 / 4
+Q 29 :    3 / 3
+Q 30 :    4 / 4
+          ---------
+Total     97.5 / 100
+          ---------
+ 
+Marks for text quality :  5.4 /8
+Comments...
+In question 8 quite well worded, though not making the correct point
+In question 12 good but could have been a bit more honed and it would be nice to mention *dynamic* equilibrium
+In question 16 not such a detailed answer and would have been nice again to mention dynamic equilibrium more explicitly
+In question 21 very good, but would be nice to explain the 'scaling factor' more clearly and show where the log comes from in the formula given
+In question 22 
+In question 23 would have been nice to mention the Sierpinski Gaskett explicitly
+In question 26 not very clear, didn't quite explain why there was originally a problem with this function before the fix.
+ 
+Marks for graphics quality :  6.5 /8
+Comments...
+In question 8 excellent
+In question 12 it would have been nice to put the legend in the whitespace and maybe get rid of the grey lines but still the finished product looks excellent
+In question 16 could have been really good but missing bar labels on the horizontal axis let it down
+In question 20 excellent, you could put the bar labels on their side to fit them in the space better, but that's a minor point
+In question 23 excellent
+In question 30 good, but the axes, and particualrly the axis labels are not relevant here
+ 
+Marks for code quality :  5.5 /8
+Comments...
+reasonably well commented but room for more, and some comments left in that were for debugging purposes only. A bit of other feedback on e.g. process_challenge_A_data() is that the number of repeats is hard coded at 100, it would be better to pass that in as a variable and then use it throughout the function.  They way it is now one could easily introduce a bug by wishing to change from 100 to 1000 but neglecting to update the number in one of the places where it is used
+ 
+Marks for challenge questions :  9.4 /16
+Comments...
+challenge question A, excellent, though some minor improvements possible on the graphics - get rid of the grey and move the legend
+challenge question B, excellent
+challenge question C, excellent
+challenge question D, good start but didn't plot the graph, compare to custer results or explain why coalescence is fast - so it was not a complete answer.
+challenge question E, very good
+challenge question F, not attempted
+challenge question G, not attempted, solution used 0 characters in total, previous record: 154 characters
