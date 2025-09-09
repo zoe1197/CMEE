@@ -1,0 +1,134 @@
+####################################################
+# SOLUTION TO PRACTICAL 3 Q4 ON LOGISTIC REGRESSION
+# CMEE MSc 2021
+# TIN-YU HUI
+####################################################
+
+# LOAD DATASET
+flowering<-read.table('flowering.txt', header=T)
+names(flowering)
+
+# PRODUCE SOME SCATTER PLOTS
+par(mfrow=c(1,2))
+plot(flowering$Flowers, flowering$State)
+plot(flowering$Root, flowering$State)
+
+# THE FIRST LOGISTIC LOG-LIKELIHOOD MODEL
+logistic.log.likelihood<-function(parm, dat)
+{
+# DEFINE PARAMETERS
+a<-parm[1]
+b<-parm[2]
+c<-parm[3]
+
+# DEFINE RESPONSE VARIABLE, WHICH IS THE FIRST COLUMN OF dat. HAS TO BE 0 OR 1 (BINARY RESPONSE)
+State<-dat[,1]
+# DEFINE THE TWO EXPLANATORY VARIABLES, CONTINUOUS
+Flowers<-dat[,2]
+Root<-dat[,3]
+
+# MODEL THE PROBABILITY OF SURVIVAL FOR EACH INDIVIDUAL
+# WHICH IS THE EXPIT TRANSFORMATION OF THE LINEAR PREDICTORS
+p<-exp(a+b*Flowers+c*Root)/(1+exp(a+b*Flowers+c*Root))
+
+# THE LOG-LIKELIHOOD FUNCTION
+log.like<-State*log(p)+(1-State)*log(1-p)
+
+# THE OVERALL LOG-LIKELIHOOD IS THE SUM OF THE LOG-LIKELIHOODS OF THE OBSERVATIONS
+return(sum(log.like))
+}
+
+# TRY 
+logistic.log.likelihood(c(0,0,0), dat=flowering)
+
+# MAXIMISE THE LOG-LIKELIHOOD VIA THE DEFAULT METHOD
+M1<-optim(c(0,0,0), logistic.log.likelihood, dat=flowering, control=list(fnscale=-1), hessian=T)
+
+#####
+# LOGISTIC REGRESSION LOG-LIKELIHOOD MODEL WITH INTERACTION TERM
+# ONE EXTRA PARAMETER d FOR THE COEFFICIENT OF THE INTERACTION
+logistic.log.likelihood.int<-function(parm, dat)
+{
+# DEFINE PARAMETERS, ONE MORE THIS TIME
+a<-parm[1]
+b<-parm[2]
+c<-parm[3]
+d<-parm[4]
+
+# DEFINE RESPONSE VARIABLE, WHICH IS THE FIRST COLUMN OF dat
+State<-dat[,1]
+# DEFINE EXPLANATORY VARIABLES
+Flowers<-dat[,2]
+Root<-dat[,3]
+interaction<-dat[,2]*dat[,3]
+
+# MODEL OUR SUCCESS PROBABILITY
+# REMEMBER TO INCLUDE THE INTERACTION TERM
+p<-exp(a+b*Flowers+c*Root+d*interaction)/(1+exp(a+b*Flowers+c*Root+d*interaction))
+
+# THE LOG-LIKELIHOOD FUNCTION FOR A SINGLE DATA POINT
+log.like<-State*log(p)+(1-State)*log(1-p)
+
+# THE OVERALL LOG-LIKELIHOOD IS THE SUM OF THE LOG-LIKELIHOODS OF THE OBSERVATIONS
+return(sum(log.like))
+}
+
+# TRY, REMEMBER WE NOW HAVE FOUR PARAMETERS
+logistic.log.likelihood.int(c(0,0,0,0), dat=flowering)
+
+# MAXIMISE THIS LOG-LIKELIHOOD IN THE FOUR-DIMENSIONAL PARAMETER SPACE
+M2<-optim(c(0,0,0,0), logistic.log.likelihood.int, dat=flowering, control=list(fnscale=-1), hessian=T)
+
+# THE LIKELIHOOD RATIO TEST STATISTIC
+# D MEASURES THE DIFFERENCE IN EXPLANATORY POWER BETWEEN THE TWO MODELS
+D<-2*(M2$value - M1$value)
+D
+
+# LOOK UP WHICH CHI-SQUARED TABLE?
+	# WHAT'S YOUR CONCLUSION????
+
+#######################################
+# EXTRAS
+# UNSURPRISINGLY YOU CAN PERFORM THE SAME ANALYSIS WITH glm()
+# THE FIRST MODEL WITH THREE PARAMETERS. ALL PARAMETER ESTIMATES ARE THE SAME. 
+glm.M1<-glm(State~Flowers+Root, family='binomial', data=flowering)
+summary(glm.M1)
+# THE SECOND MODEL WITH THE INTERACTION TERM. 
+glm.M2<-glm(State~Flowers*Root, family='binomial', data=flowering)
+summary(glm.M2)
+
+# THE RESIDUAL DEVIANCE IS (-2)*MAXIMISED LOG-LIKELIHOOD VALUE
+# MODEL COMPARISON USING anova(). SAME LRT STATISTIC! SEE?
+anova(glm.M1, glm.M2, test='LRT')
+#######################################
+
+#######################################
+# PROFILING ON b
+# PROFILE LOG-LIKELIHOOD FOR b. OBVIOUSLY IT IS A FUNCTION OF b
+profile.log.likelihood<-function(b)
+{
+f<-function(parm_acd) 
+{logistic.log.likelihood.int(c(parm_acd[1], b, 
+parm_acd[2], parm_acd[3]), dat=flowering)}
+	
+temp<-optim(c(0, 0, 0), f, control=list(fnscale=-1))
+	return(temp$value)
+}
+
+# THE WRONG APPROACH. SET b=-0.03, AND KEEP OTHERS AT THEIR MLE
+logistic.log.likelihood.int(parm=c(M2$par[1], -0.03, M2$par[3], M2$par[4]), dat=flowering)
+
+# THE CORRECT PROFILE LIKELIHOOD AT b=-0.03
+profile.log.likelihood(b=-0.03)
+
+
+# PLOT THE PROFILE LOG-LIKELIHOOD FOR A RANGE OF b, USUALLY AROUND ITS MLE
+b<-seq(-0.19, -0.004, 0.002)
+profile.log.likelihood.value<-rep(NA, length(b))
+for (i in 1:length(b))
+{profile.log.likelihood.value[i]<-profile.log.likelihood(b[i])}
+
+# PLOT THE PROFILE LOG-LIKELIHOOD
+plot(b, profile.log.likelihood.value, type='l')
+# DRAW A HORIZONTAL LINE WHICH IS 1.92 UNITS BELOW THE MAXIMUM
+abline(h=M2$value-1.92, col='red', lty=2)
