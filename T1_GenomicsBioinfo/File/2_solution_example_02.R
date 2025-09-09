@@ -5,13 +5,13 @@
 
 len <- 20000
 
-data_w <- read.csv("../Data/western_banded_gecko.csv", stringsAsFactors=F, header=F, colClasses=rep("character", len))
+data_w <- read.csv("Data/western_banded_gecko.csv", stringsAsFactors=F, header=F, colClasses=rep("character", len))
 dim(data_w)
 
-data_b <- read.csv("../Data/bent-toed_gecko.csv", stringsAsFactors=F, header=F, colClasses=rep("character", len))
+data_b <- read.csv("Data/bent-toed_gecko.csv", stringsAsFactors=F, header=F, colClasses=rep("character", len))
 dim(data_b)
 
-data_l <- read.csv("../Data/leopard_gecko.csv", stringsAsFactors=F, header=F, colClasses=rep("character", len))
+data_l <- read.csv("Data/leopard_gecko.csv", stringsAsFactors=F, header=F, colClasses=rep("character", len))
 dim(data_l)
 
 

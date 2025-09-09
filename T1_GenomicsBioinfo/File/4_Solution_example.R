@@ -6,10 +6,12 @@
 
 len <- 50000
 
-data_N <- as.matrix(read.csv("../Data/killer_whale_North.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
+# data_N <- as.matrix(read.csv("../Data/killer_whale_North.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
+data_N <- as.matrix(read.csv("Data/killer_whale_North.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
 dim(data_N)
 
-data_S <- as.matrix(read.csv("../Data/killer_whale_South.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
+# data_S <- as.matrix(read.csv("../Data/killer_whale_South.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
+data_S <- as.matrix(read.csv("Data/killer_whale_South.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
 dim(data_S)
 
 ## 1) estimates of effective population size

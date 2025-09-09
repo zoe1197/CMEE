@@ -3,7 +3,7 @@
 
 ### read data
 len <- 2000
-data <- as.matrix(read.csv("../Data/turtle.genotypes.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
+data <- as.matrix(read.csv("Data/turtle.genotypes.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
 dim(data)
 
 ### assign an name for each location
@@ -37,7 +37,7 @@ legend("right", legend=sort(unique(locations)), col=unique(colors), pch=1)
 
 ### or we can calculate FST between locations from haplotype
 
-data2 <- as.matrix(read.csv("../Data/turtle.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
+data2 <- as.matrix(read.csv("Data/turtle.csv", stringsAsFactors=F, header=F, colClasses=rep("numeric", len)))
 
 calcFST <- function(pop1, pop2) {
 
@@ -72,3 +72,4 @@ cat("\nFST value (average):",
 ### these values indicate a certain degree of population subdivision
 
 ## 2) there is no evidence for isolation by distance, but instead of admixture
+
