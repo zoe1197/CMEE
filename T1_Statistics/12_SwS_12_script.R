@@ -3,7 +3,7 @@
 rm(list=ls())
 graphics.off()
 
-d <- read.table("12_SparrowSize.txt", header = TRUE)
+d <- read.table("CMEE/T1_Statistics/12_SparrowSize.txt", header = TRUE)
 
 d1<-subset(d, d$Wing!="NA")
 summary(d1$Wing)

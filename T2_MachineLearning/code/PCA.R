@@ -1,5 +1,5 @@
 rm(list = ls())
-setwd("~/reviewCMEE/ML")
+setwd("~/CMEE/T2_MachineLearning/code")
 
 library(mvtnorm)
 

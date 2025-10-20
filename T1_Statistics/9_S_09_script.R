@@ -10,7 +10,7 @@
 #Before you go into the linear model, you should first describe your data, say how many sparrows, how many females and males, whether there is a difference in your response between the sexes. If that difference is meaningful, you should test the sexes separately. Write this section as you would write it for a scientific article. Discuss in the group what should go into the report, and what not. Submit one report per group.
 
 rm(list=ls())
-d<-read.table("9_arrowSize.txt", header=TRUE)
+d<-read.table("CMEE/T1_Statistics/9_arrowSize.txt", header=TRUE)
 
 plot(d$Mass~d$Bill, ylab="Mass (g)", xlab="Bill (mm)", pch=19, cex=0.4)
 

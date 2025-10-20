@@ -28,7 +28,8 @@ garson(model)
 
 ########### Exercise ###########
 # 2
-data <- read.csv("datasets/winequality-red.csv", sep = ';')
+# data <- read.csv("datasets/winequality-red.csv", sep = ';')
+data <- read.csv("../data/winequality-red.csv", sep = ";")
 training <- sample(nrow(data), nrow(data)/2)
 model <- neuralnet(quality~fixed.acidity+volatile.acidity+
                      citric.acid+residual.sugar+chlorides+
